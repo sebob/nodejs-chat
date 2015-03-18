@@ -3,8 +3,7 @@ var app = require('http').createServer(handler),
   parser = new require('xml2json'),
   fs = require('fs'),
   ip = 0;
-
-// creating the server ( localhost:8000 )
+  
 app.listen(8000);
 
 console.log('server listening on localhost:8000');
@@ -24,7 +23,6 @@ var s = net.Server(function(socket) {
             sockets[i].write(data.toString());
         }
         
-        
         io.sockets.emit('notification', {"host": socket.key, "msg": data.toString()});
     });
     
@@ -33,14 +31,10 @@ var s = net.Server(function(socket) {
         delete sockets[i];
         console.log('client disconnected');
     });
-    
-    // creating a new websocket to keep the content updated without any AJAX request
 });
 s.listen(8888);
 
-// on server started we can load our client.html page
 function handler(req, res) {
-  //ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
   fs.readFile(__dirname + '/client.html', function(err, data) {
     if (err) {
       console.log(err);

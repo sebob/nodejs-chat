@@ -1,34 +1,28 @@
 <html>
-	<head>
-	<!--
-	 * Author:		Gianluca Guarini
-	 * Contact: 	gianluca.guarini@gmail.com
-	 * Website:		http://www.gianlucaguarini.com/
-	 * Twitter:		@gianlucaguarini
-	-->
-		<title>Push notification server</title>
-	</head>
-	<body>
-		<time></time>
-		<div id="container">
-                    Messages
-                    <ul>
-                        
-                    </ul>
-                </div>
-	<script src="socket.io/socket.io.js"></script>
-	<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
-	<script>
-	// creating a new websocket
-	var socket = io.connect('http://localhost:8000');
-	// on every message recived we print the new datas inside the #container div
-	socket.on('notification', function (data) {
-		// convert the json string into a valid javascript object
-		//var _data = JSON.parse(data);
+    <head>
+        <title>Chat Log</title>
+    </head>
+    <body>
+        <time></time>
+        <div id="container">
+            Messages
+            <ul>
+
+            </ul>
+        </div>
+        <script src="socket.io/socket.io.js"></script>
+        <script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+        <script>
+        // creating a new websocket
+        var socket = io.connect('http://localhost:8000');
+        // on every message recived we print the new datas inside the #container div
+        socket.on('notification', function (data) {
+                // convert the json string into a valid javascript object
+                //var _data = JSON.parse(data);
                 var li = $('<li>').html(data.host + ':' + data.msg);
-		$('#container ul').append(li);
-		$('time').html('Last Update:' + new Date());
-	});
-	</script>
-	</body>
+                $('#container ul').append(li);
+                $('time').html('Last Update:' + new Date());
+        });
+        </script>
+    </body>
 </html>
